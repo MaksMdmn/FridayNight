@@ -1,4 +1,5 @@
 ﻿using FridayNight.DAL.Model.Abstract;
+using System;
 
 namespace FridayNight.DAL.Model
 {
@@ -13,8 +14,6 @@ namespace FridayNight.DAL.Model
 
     public class FriendlyCharge : ModelBase
     {
-        public Band Band { get; set; }
-
         public decimal Amount { get; set; }
 
         public EChargeState State { get; set; }

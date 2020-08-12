@@ -18,7 +18,7 @@ namespace FridayNight.DAL.Model
 
         public Place Place { get; set; }
 
-        public Approval MyProperty { get; set; }
+        public bool IsApproved { get; set; }
 
         public EPerformanceState State { get; set; }
 
@@ -26,7 +26,7 @@ namespace FridayNight.DAL.Model
 
         public TimeSpan? Duration { get; set; }
 
-        public bool IsPublic { get; set; }
+        public bool IsPrivate { get; set; }
 
         public Location Location { get; set; }
     }

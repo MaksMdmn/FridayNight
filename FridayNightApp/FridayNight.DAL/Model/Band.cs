@@ -5,27 +5,25 @@ using System.Text;
 
 namespace FridayNight.DAL.Model
 {
-    public class Band : ModelBase
+    public class Band : Account
     {
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public PhotoCover PhotoCover { get; set; }
+        public Photo PhotoCover { get; set; }
 
-        public YoutubeVideo YoutubeVideo { get; set; }
+        public YoutubeVideoLink YoutubeVideo { get; set; }
 
         public InstagramLink InstagramLink { get; set; }
 
-        public List<LivePerformance> PerformanceHistory { get; set; }
+        public List<LivePerformance> Performances { get; set; }
 
-        public List<LivePerformance> UpcomingPerformances { get; set; }
-
-        public MusicStyle MusicStyle { get; set; }
+        public List<MusicStyle> MusicStyle { get; set; }
 
         public List<Track> Tracks { get; set; }
 
-        public SoundCloudBand SoundCloudData { get; set; }
+        public SoundCloudBand SoundCloudBand { get; set; }
 
         public Contact Contact { get; set; }
 

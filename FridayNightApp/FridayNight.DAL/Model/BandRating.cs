@@ -4,10 +4,10 @@ namespace FridayNight.DAL.Model
 {
     public class BandRating : RatingBase
     {
-        public int LikesAmount { get; set; }
+        public int LikesCount { get; set; }
 
-        public int ViewsAmount { get; set; }
+        public int ViewsCount { get; set; }
 
-        public int OpenedContactAmount { get; set; }
+        public int OpenedContactCount { get; set; }
     }
 }

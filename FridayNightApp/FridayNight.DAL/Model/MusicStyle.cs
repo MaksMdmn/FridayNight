@@ -7,8 +7,7 @@ namespace FridayNight.DAL.Model
         Rock,
         Dj,
         Pop,
-        HipHop,
-        ChopChop
+        HipHop
     }
 
     public class MusicStyle : ModelBase

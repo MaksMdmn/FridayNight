@@ -6,5 +6,6 @@ namespace FridayNight.DAL.Model.Abstract
 {
     public abstract class SoundCloudObjectBase : ModelBase
     {
+
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FridayNight.DAL.Model.Abstract
 {
-    public class RatingBase: ModelBase
+    public abstract class RatingBase: ModelBase
     {
 
     }

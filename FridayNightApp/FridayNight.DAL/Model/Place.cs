@@ -10,22 +10,24 @@ namespace FridayNight.DAL.Model
         Restoraunt,
         Club,
         PublicOpenSpace,
-        PrivatePary
+        ClosedParty
     }
 
 
-    public class Place : ModelBase
+    public class Place : Account
     {
+        public EPlaceType PlaceType { get; set; }
+
         public string Name { get; set; }
 
         public Contact Contact { get; set; }
 
         public List<Location> Locations { get; set; }
 
-        public EPlaceType PlaceType { get; set; }
-
         public List<LivePerformance> PerformanceHistory { get; set; }
 
-        public Dictionary<DateTime, ViewedData> ViewedBands { get; set; }
+        public Dictionary<DateTime, Band> ViewedBands { get; set; }
+
+        public MusicPreferences MusicPreferences { get; set; }
     }
 }

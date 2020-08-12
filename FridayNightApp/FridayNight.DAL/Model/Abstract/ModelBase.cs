@@ -6,6 +6,6 @@ namespace FridayNight.DAL.Model.Abstract
 {
     public abstract class ModelBase
     {
-        public int Id { get; set; }
+        public Guid Uid { get; set; }
     }
 }

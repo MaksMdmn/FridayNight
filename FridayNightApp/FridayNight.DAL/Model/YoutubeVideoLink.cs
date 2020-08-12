@@ -2,7 +2,7 @@
 
 namespace FridayNight.DAL.Model
 {
-    public class YoutubeVideo : ResourceBase
+    public class YoutubeVideoLink : LinkContainerBase
     {
     }
 }

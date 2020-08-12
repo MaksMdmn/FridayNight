@@ -4,6 +4,6 @@ namespace FridayNight.DAL.Model
 {
     public class TrackRating : RatingBase
     {
-        public int ListenedAmount { get; set; }
+        public int ListenedCount { get; set; }
     }
 }

@@ -6,17 +6,11 @@ using System.Text;
 
 namespace FridayNight.DAL.Model
 {
-    public class User : ModelBase
+    public class User : Account
     {
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
-        public string Email { get; set; }
-
-        public string Phone { get; set; }
-
-        public string Password { get; set; }
 
         public MusicPreferences MusicPreferences { get; set; }
 
