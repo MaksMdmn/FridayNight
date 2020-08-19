@@ -1,5 +1,4 @@
-﻿using FN.DAL.Model.Abstract;
-using FridayNight.DAL.Model.Abstract;
+﻿using FridayNight.DAL.Model.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Text;

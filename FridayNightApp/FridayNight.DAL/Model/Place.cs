@@ -26,7 +26,7 @@ namespace FridayNight.DAL.Model
 
         public List<LivePerformance> PerformanceHistory { get; set; }
 
-        public Dictionary<DateTime, Band> ViewedBands { get; set; }
+        public List<ViewedBands> ViewedBands{ get; set; }
 
         public MusicPreferences MusicPreferences { get; set; }
     }

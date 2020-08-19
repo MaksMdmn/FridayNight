@@ -9,8 +9,6 @@ namespace FridayNight.DAL.Model
 
         public string TrackName { get; set; }
 
-        public SoundCloudTrack SoundCloudTrack { get; set; }
-
         public List<MusicStyle> MusicStyle { get; set; }
 
         public TrackRating Rating { get; set; }

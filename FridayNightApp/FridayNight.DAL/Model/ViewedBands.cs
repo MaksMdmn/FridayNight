@@ -5,7 +5,8 @@ using System.Text;
 
 namespace FridayNight.DAL.Model
 {
-    public class SoundCloudTrack : SoundCloudObjectBase
+    public class ViewedBands : ActionRecordBase
     {
+        public Band Band { get; set; }
     }
 }

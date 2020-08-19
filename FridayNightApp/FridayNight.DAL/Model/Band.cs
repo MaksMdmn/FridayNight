@@ -23,8 +23,6 @@ namespace FridayNight.DAL.Model
 
         public List<Track> Tracks { get; set; }
 
-        public SoundCloudBand SoundCloudBand { get; set; }
-
         public Contact Contact { get; set; }
 
         public List<Photo> Photos { get; set; }
