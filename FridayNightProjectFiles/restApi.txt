@@ -1,0 +1,46 @@
+mainPage
+	GET  /api/v1/getMainPageTrackSet
+	POST /api/v1/searchFor
+		+ droplist with values:
+			by band
+			by song
+			by place
+			by style
+	POST /api/v1/setLocation
+	WTF  /api/v1/player...
+
+allBandsPage
+	GET /api/v1/getBands (with filter in url + pagination)
+
+bandPage
+	GET  /api/v1/getBandPageInfo
+	GET  /api/v1/getBandPhotos
+	GET  /api/v1/revealContacts
+	POST /api/v1/sendProposition
+	
+profile
+	band
+		GET  	/api/v1/getBandProfile
+		POST 	/api/v1/updateBandProfile
+		DELETE 	/api/v1/deleteBandProfile
+		GET  	/api/v1/getOffers
+		POST 	/api/v1/confirmProposition
+		GET  	/api/v1/getPlaces
+		POST 	/api/v1/checkMeOut
+		
+	place
+		GET  	/api/v1/getPlaceProfile
+		POST 	/api/v1/updatePlaceProfile
+		DELETE 	/api/v1/deletePlaceProfile
+		GET     /api/v1/getBandsCandidates
+		GET     /api/v1/getCheckMeOuts
+		POST 	/api/v1/sendProposition
+		
+	visitor
+		GET  	/api/v1/getVisitorProfile
+		POST 	/api/v1/updateVisitorProfile
+		DELETE 	/api/v1/deleteVisitorProfile
+	
+register/login/logout
+	
+	
