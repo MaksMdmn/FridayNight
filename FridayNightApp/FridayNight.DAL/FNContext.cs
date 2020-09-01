@@ -27,7 +27,7 @@ namespace FridayNight.DAL
         public DbSet<Track> Tracks { get; set; }
         //public DbSet<PlaylistInternal> MyProperty { get; set; }
 
-        public FNContext(DbContextOptions options) : base(options)
+        public FNContext(DbContextOptions<FNContext> options) : base(options)
         {
 
         }
@@ -43,6 +43,16 @@ namespace FridayNight.DAL
             modelBuilder.Entity<LinkContainerBase>().ToTable("link_containers");
             modelBuilder.Entity<ResourceBase>().ToTable("resources");
             modelBuilder.Entity<ActionRecordBase>().ToTable("action_records");
+
+            modelBuilder.HasPostgresExtension("uuid-ossp");
+
+            modelBuilder.Entity<User>().HasData(
+                new User()
+                {
+                    Uid = Guid.NewGuid(),
+                    FirstName = "test",
+                    LastName = "test"
+                });
         }
     }
 }

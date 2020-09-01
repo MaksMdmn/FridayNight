@@ -1,5 +1,8 @@
 using System;
 using FridayNight.DAL;
+using FridayNight.DAL.Model;
+using FridayNight.DAL.Repository;
+using FridayNight.DAL.Repository.Interface;
 using FridayNightApp.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,7 +18,7 @@ namespace FridayNightApp
     public class Startup
     {
         private readonly IConfiguration _configuration;
-        
+
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -23,13 +26,17 @@ namespace FridayNightApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(options => 
+            {
+                options.EnableEndpointRouting = false;
+            });
+
             //
             // Access appconfig all the way throughout the applicaton by using DI :  services.BuildServiceProvider().GetService<IOptions<ApplicationConfig>>()
             //
             services.Configure<ApplicationConfig>(
                 _configuration.GetSection(nameof(ApplicationConfig))
                 );
-
 
             services.AddDbContext<FNContext>(options =>
             {
@@ -40,6 +47,9 @@ namespace FridayNightApp
                     .Databases.PostgreSQL.ConnectionString
                     );
             });
+
+            services.AddScoped<DbContext>(provider => provider.GetService<FNContext>());
+            services.AddScoped<IRepositoryBase<User>, UserRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -49,21 +59,23 @@ namespace FridayNightApp
                 app.UseDeveloperExceptionPage();
             }
 
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<FNContext>();
-                context.Database.Migrate();
-            }
+            //using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    var context = serviceScope.ServiceProvider.GetRequiredService<FNContext>();
+            //    context.Database.Migrate();
+            //}
 
-            app.UseRouting();
+            app.UseMvc();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
+            //app.UseRouting();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapGet("/", async context =>
+            //    {
+            //        await context.Response.WriteAsync("Hello World!");
+            //    });
+            //});
         }
     }
 }

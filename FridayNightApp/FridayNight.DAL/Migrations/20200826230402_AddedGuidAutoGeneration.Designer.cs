@@ -3,15 +3,17 @@ using System;
 using FridayNight.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FridayNight.DAL.Migrations
 {
     [DbContext(typeof(FNContext))]
-    partial class FNContextModelSnapshot : ModelSnapshot
+    [Migration("20200826230402_AddedGuidAutoGeneration")]
+    partial class AddedGuidAutoGeneration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -534,14 +536,6 @@ namespace FridayNight.DAL.Migrations
                         .HasName("ix_accounts_music_preferences_uid1");
 
                     b.HasDiscriminator().HasValue("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Uid = new Guid("00000000-0000-0000-0000-000000000000"),
-                            FirstName = "test",
-                            LastName = "test"
-                        });
                 });
 
             modelBuilder.Entity("FridayNight.DAL.Model.Contact", b =>

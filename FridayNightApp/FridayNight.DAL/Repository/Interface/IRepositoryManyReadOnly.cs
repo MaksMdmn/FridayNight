@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FridayNight.DAL.Repository
+namespace FridayNight.DAL.Repository.Interface
 {
     public interface IRepositoryManyReadOnly<TEntity> : IRepositoryReadOnly<TEntity> where TEntity : IEntity
     {

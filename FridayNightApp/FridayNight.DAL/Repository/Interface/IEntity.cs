@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FridayNight.DAL.Repository
+namespace FridayNight.DAL.Repository.Interface
 {
     public interface IEntity
     {
-        Guid Uid { get; set; }
+        Guid? Uid { get; set; }
     }
 }

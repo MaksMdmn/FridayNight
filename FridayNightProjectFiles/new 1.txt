@@ -1,0 +1,18 @@
+1) Think of WebUI + REST:
+	create rest api urls
+	implement controllers
+	create webApp models
+	create DTO
+	implement automapper
+	implement repositories
+	
+	
+2) webApi Models -> (automapper) DTO (cutommapper) -> DAL Models
+
+3) Controller -> 
+	Service (accepts and returns webApi Models, maps to DTO - DAL Models) -> 
+	Repository (works with DAL Models only)
+
+4) ReadOnly WriteOnlyRepo + RWRepo and thats it
+5) Implement Base repositories
+6) then get back to 2 and 3	
