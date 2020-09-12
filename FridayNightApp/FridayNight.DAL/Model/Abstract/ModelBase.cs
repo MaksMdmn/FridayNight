@@ -1,4 +1,4 @@
-﻿using FridayNight.DAL.Repository.Interface;
+﻿using FridayNight.DAL.Repository.Abstract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

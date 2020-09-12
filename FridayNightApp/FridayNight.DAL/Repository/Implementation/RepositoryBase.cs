@@ -1,10 +1,10 @@
-﻿using FridayNight.DAL.Repository.Interface;
+﻿using FridayNight.DAL.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FridayNight.DAL.Repository
+namespace FridayNight.DAL.Repository.Implementation
 {
 
     //
@@ -13,14 +13,14 @@ namespace FridayNight.DAL.Repository
     //
     public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class, IEntity
     {
-        protected DbContext _context;
+        protected DbContext Context;
         // do we need that shit?
-        protected DbSet<TEntity> _entities;
+        protected DbSet<TEntity> Entities;
 
         public RepositoryBase(DbContext context)
         {
-            _context = context;
-            _entities = _context.Set<TEntity>();
+            Context = context;
+            Entities = Context.Set<TEntity>();
         }
 
 
@@ -33,38 +33,38 @@ namespace FridayNight.DAL.Repository
 
             TEntity resultEntity = null;
 
-            var oldEntity = _context.Find<TEntity>(entity.Uid);
+            var oldEntity = Context.Find<TEntity>(entity.Uid);
 
             if (oldEntity == null)
             {
-                resultEntity = _context.Add(entity).Entity;
+                resultEntity = Context.Add(entity).Entity;
 
-                _context.SaveChanges();
+                Context.SaveChanges();
             }
             else
             {
-                _context.Entry(oldEntity).State = EntityState.Detached;
-                _context.Entry(entity).State = EntityState.Modified;
+                Context.Entry(oldEntity).State = EntityState.Detached;
+                Context.Entry(entity).State = EntityState.Modified;
 
                 resultEntity = entity;
 
-                _context.SaveChanges();
+                Context.SaveChanges();
 
             }
 
             return resultEntity;
         }
 
-        public virtual void Delete(Guid uid)
+        public virtual void Delete(Guid? uid)
         {
-            _context.Remove(_context.Find<TEntity>(uid));
+            Context.Remove(Context.Find<TEntity>(uid));
 
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
 
-        public virtual TEntity GetById(Guid uid)
+        public virtual TEntity GetById(Guid? uid)
         {
-            return _context.Find<TEntity>(uid);
+            return Context.Find<TEntity>(uid);
         }
     }
 }

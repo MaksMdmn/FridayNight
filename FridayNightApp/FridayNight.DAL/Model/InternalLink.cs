@@ -5,8 +5,8 @@ using System.Text;
 
 namespace FridayNight.DAL.Model
 {
-    public class ViewedBands : ActionRecordBase
+    public class InternalLink : LinkContainerBase
     {
-        public Band Band { get; set; }
+
     }
 }

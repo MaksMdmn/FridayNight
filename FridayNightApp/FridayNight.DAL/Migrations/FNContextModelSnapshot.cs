@@ -20,9 +20,58 @@ namespace FridayNight.DAL.Migrations
                 .HasAnnotation("ProductVersion", "3.1.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("FridayNight.DAL.Model.Abstract.AccountBase", b =>
+                {
+                    b.Property<Guid?>("Uid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("uid")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnName("discriminator")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnName("email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnName("is_confirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Login")
+                        .HasColumnName("login")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnName("name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .HasColumnName("password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .HasColumnName("phone")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnName("registration_date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Uid")
+                        .HasName("pk_account_base");
+
+                    b.ToTable("accounts");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("AccountBase");
+                });
+
             modelBuilder.Entity("FridayNight.DAL.Model.Abstract.ActionRecordBase", b =>
                 {
-                    b.Property<Guid>("Uid")
+                    b.Property<Guid?>("Uid")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("uid")
                         .HasColumnType("uuid");
 
@@ -45,7 +94,8 @@ namespace FridayNight.DAL.Migrations
 
             modelBuilder.Entity("FridayNight.DAL.Model.Abstract.LinkContainerBase", b =>
                 {
-                    b.Property<Guid>("Uid")
+                    b.Property<Guid?>("Uid")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("uid")
                         .HasColumnType("uuid");
 
@@ -68,7 +118,8 @@ namespace FridayNight.DAL.Migrations
 
             modelBuilder.Entity("FridayNight.DAL.Model.Abstract.RatingBase", b =>
                 {
-                    b.Property<Guid>("Uid")
+                    b.Property<Guid?>("Uid")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("uid")
                         .HasColumnType("uuid");
 
@@ -87,7 +138,8 @@ namespace FridayNight.DAL.Migrations
 
             modelBuilder.Entity("FridayNight.DAL.Model.Abstract.ResourceBase", b =>
                 {
-                    b.Property<Guid>("Uid")
+                    b.Property<Guid?>("Uid")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("uid")
                         .HasColumnType("uuid");
 
@@ -108,96 +160,11 @@ namespace FridayNight.DAL.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("ResourceBase");
                 });
 
-            modelBuilder.Entity("FridayNight.DAL.Model.Account", b =>
-                {
-                    b.Property<Guid>("Uid")
-                        .HasColumnName("uid")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnName("discriminator")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasColumnName("email")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .HasColumnName("password")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Phone")
-                        .HasColumnName("phone")
-                        .HasColumnType("text");
-
-                    b.HasKey("Uid")
-                        .HasName("pk_accounts");
-
-                    b.ToTable("accounts");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Account");
-                });
-
-            modelBuilder.Entity("FridayNight.DAL.Model.Contact", b =>
-                {
-                    b.Property<Guid>("Uid")
-                        .HasColumnName("uid")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("LocationUid")
-                        .HasColumnName("location_uid")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .HasColumnName("name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Phone")
-                        .HasColumnName("phone")
-                        .HasColumnType("text");
-
-                    b.HasKey("Uid")
-                        .HasName("pk_contacts");
-
-                    b.HasIndex("LocationUid")
-                        .HasName("ix_contacts_location_uid");
-
-                    b.ToTable("contacts");
-                });
-
-            modelBuilder.Entity("FridayNight.DAL.Model.FriendlyCharge", b =>
-                {
-                    b.Property<Guid>("Uid")
-                        .HasColumnName("uid")
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnName("amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("State")
-                        .HasColumnName("state")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Uid")
-                        .HasName("pk_friendly_charges");
-
-                    b.ToTable("friendly_charges");
-                });
-
             modelBuilder.Entity("FridayNight.DAL.Model.LivePerformance", b =>
                 {
-                    b.Property<Guid>("Uid")
+                    b.Property<Guid?>("Uid")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("uid")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("BandUid")
-                        .HasColumnName("band_uid")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("ChargeUid")
-                        .HasColumnName("charge_uid")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Date")
@@ -208,9 +175,9 @@ namespace FridayNight.DAL.Migrations
                         .HasColumnName("duration")
                         .HasColumnType("interval");
 
-                    b.Property<bool>("IsApproved")
-                        .HasColumnName("is_approved")
-                        .HasColumnType("boolean");
+                    b.Property<Guid?>("InAppLinkUid")
+                        .HasColumnName("in_app_link_uid")
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsPrivate")
                         .HasColumnName("is_private")
@@ -220,35 +187,55 @@ namespace FridayNight.DAL.Migrations
                         .HasColumnName("location_uid")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("PlaceUid")
-                        .HasColumnName("place_uid")
+                    b.Property<Guid?>("MusicTalentUid")
+                        .HasColumnName("music_talent_uid")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasColumnName("name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PerformanceType")
+                        .HasColumnName("performance_type")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("PhotoUid")
+                        .HasColumnName("photo_uid")
                         .HasColumnType("uuid");
 
                     b.Property<int>("State")
                         .HasColumnName("state")
                         .HasColumnType("integer");
 
+                    b.Property<Guid?>("TalentSeekerUid")
+                        .HasColumnName("talent_seeker_uid")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Uid")
                         .HasName("pk_live_performances");
 
-                    b.HasIndex("BandUid")
-                        .HasName("ix_live_performances_band_uid");
-
-                    b.HasIndex("ChargeUid")
-                        .HasName("ix_live_performances_charge_uid");
+                    b.HasIndex("InAppLinkUid")
+                        .HasName("ix_live_performances_in_app_link_uid");
 
                     b.HasIndex("LocationUid")
                         .HasName("ix_live_performances_location_uid");
 
-                    b.HasIndex("PlaceUid")
-                        .HasName("ix_live_performances_place_uid");
+                    b.HasIndex("MusicTalentUid")
+                        .HasName("ix_live_performances_music_talent_uid");
+
+                    b.HasIndex("PhotoUid")
+                        .HasName("ix_live_performances_photo_uid");
+
+                    b.HasIndex("TalentSeekerUid")
+                        .HasName("ix_live_performances_talent_seeker_uid");
 
                     b.ToTable("live_performances");
                 });
 
             modelBuilder.Entity("FridayNight.DAL.Model.Location", b =>
                 {
-                    b.Property<Guid>("Uid")
+                    b.Property<Guid?>("Uid")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("uid")
                         .HasColumnType("uuid");
 
@@ -264,22 +251,55 @@ namespace FridayNight.DAL.Migrations
                         .HasColumnName("country")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("PlaceUid")
-                        .HasColumnName("place_uid")
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnName("creation_date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("GoogleCoordinates")
+                        .HasColumnName("google_coordinates")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("TalentSeekerUid")
+                        .HasColumnName("talent_seeker_uid")
                         .HasColumnType("uuid");
 
                     b.HasKey("Uid")
                         .HasName("pk_locations");
 
-                    b.HasIndex("PlaceUid")
-                        .HasName("ix_locations_place_uid");
+                    b.HasIndex("TalentSeekerUid")
+                        .HasName("ix_locations_talent_seeker_uid");
 
                     b.ToTable("locations");
                 });
 
+            modelBuilder.Entity("FridayNight.DAL.Model.MusicInstrument", b =>
+                {
+                    b.Property<Guid?>("Uid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("uid")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("MusicTalentUid")
+                        .HasColumnName("music_talent_uid")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Type")
+                        .HasColumnName("type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Uid")
+                        .HasName("pk_music_instrument");
+
+                    b.HasIndex("MusicTalentUid")
+                        .HasName("ix_music_instrument_music_talent_uid");
+
+                    b.ToTable("music_instrument");
+                });
+
             modelBuilder.Entity("FridayNight.DAL.Model.MusicPreferences", b =>
                 {
-                    b.Property<Guid>("Uid")
+                    b.Property<Guid?>("Uid")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("uid")
                         .HasColumnType("uuid");
 
@@ -291,16 +311,17 @@ namespace FridayNight.DAL.Migrations
 
             modelBuilder.Entity("FridayNight.DAL.Model.MusicStyle", b =>
                 {
-                    b.Property<Guid>("Uid")
+                    b.Property<Guid?>("Uid")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("uid")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("BandUid")
-                        .HasColumnName("band_uid")
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("MusicPreferencesUid")
                         .HasColumnName("music_preferences_uid")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("MusicTalentUid")
+                        .HasColumnName("music_talent_uid")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Name")
@@ -314,11 +335,11 @@ namespace FridayNight.DAL.Migrations
                     b.HasKey("Uid")
                         .HasName("pk_music_styles");
 
-                    b.HasIndex("BandUid")
-                        .HasName("ix_music_styles_band_uid");
-
                     b.HasIndex("MusicPreferencesUid")
                         .HasName("ix_music_styles_music_preferences_uid");
+
+                    b.HasIndex("MusicTalentUid")
+                        .HasName("ix_music_styles_music_talent_uid");
 
                     b.HasIndex("TrackUid")
                         .HasName("ix_music_styles_track_uid");
@@ -328,7 +349,8 @@ namespace FridayNight.DAL.Migrations
 
             modelBuilder.Entity("FridayNight.DAL.Model.Track", b =>
                 {
-                    b.Property<Guid>("Uid")
+                    b.Property<Guid?>("Uid")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("uid")
                         .HasColumnType("uuid");
 
@@ -356,25 +378,46 @@ namespace FridayNight.DAL.Migrations
                     b.ToTable("tracks");
                 });
 
-            modelBuilder.Entity("FridayNight.DAL.Model.ViewedBands", b =>
+            modelBuilder.Entity("FridayNight.DAL.Model.Abstract.TalentProvider", b =>
+                {
+                    b.HasBaseType("FridayNight.DAL.Model.Abstract.AccountBase");
+
+                    b.HasDiscriminator().HasValue("TalentProvider");
+                });
+
+            modelBuilder.Entity("FridayNight.DAL.Model.TalentSeeker", b =>
+                {
+                    b.HasBaseType("FridayNight.DAL.Model.Abstract.AccountBase");
+
+                    b.Property<Guid?>("MusicPreferencesUid")
+                        .HasColumnName("music_preferences_uid")
+                        .HasColumnType("uuid");
+
+                    b.HasIndex("MusicPreferencesUid")
+                        .HasName("ix_talent_seekers_music_preferences_uid");
+
+                    b.HasDiscriminator().HasValue("TalentSeeker");
+                });
+
+            modelBuilder.Entity("FridayNight.DAL.Model.ViewedTalents", b =>
                 {
                     b.HasBaseType("FridayNight.DAL.Model.Abstract.ActionRecordBase");
 
-                    b.Property<Guid?>("BandUid")
-                        .HasColumnName("band_uid")
+                    b.Property<Guid?>("TalentSeekerUid")
+                        .HasColumnName("talent_seeker_uid")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("PlaceUid")
-                        .HasColumnName("place_uid")
+                    b.Property<Guid?>("TalentUid")
+                        .HasColumnName("talent_uid")
                         .HasColumnType("uuid");
 
-                    b.HasIndex("BandUid")
-                        .HasName("ix_viewed_bands_band_uid");
+                    b.HasIndex("TalentSeekerUid")
+                        .HasName("ix_viewed_talents_talent_seeker_uid");
 
-                    b.HasIndex("PlaceUid")
-                        .HasName("ix_viewed_bands_place_uid");
+                    b.HasIndex("TalentUid")
+                        .HasName("ix_viewed_talents_talent_uid");
 
-                    b.HasDiscriminator().HasValue("ViewedBands");
+                    b.HasDiscriminator().HasValue("ViewedTalents");
                 });
 
             modelBuilder.Entity("FridayNight.DAL.Model.InstagramLink", b =>
@@ -384,6 +427,13 @@ namespace FridayNight.DAL.Migrations
                     b.HasDiscriminator().HasValue("InstagramLink");
                 });
 
+            modelBuilder.Entity("FridayNight.DAL.Model.InternalLink", b =>
+                {
+                    b.HasBaseType("FridayNight.DAL.Model.Abstract.LinkContainerBase");
+
+                    b.HasDiscriminator().HasValue("InternalLink");
+                });
+
             modelBuilder.Entity("FridayNight.DAL.Model.YoutubeVideoLink", b =>
                 {
                     b.HasBaseType("FridayNight.DAL.Model.Abstract.LinkContainerBase");
@@ -391,7 +441,7 @@ namespace FridayNight.DAL.Migrations
                     b.HasDiscriminator().HasValue("YoutubeVideoLink");
                 });
 
-            modelBuilder.Entity("FridayNight.DAL.Model.BandRating", b =>
+            modelBuilder.Entity("FridayNight.DAL.Model.MusicTalentRating", b =>
                 {
                     b.HasBaseType("FridayNight.DAL.Model.Abstract.RatingBase");
 
@@ -407,7 +457,7 @@ namespace FridayNight.DAL.Migrations
                         .HasColumnName("views_count")
                         .HasColumnType("integer");
 
-                    b.HasDiscriminator().HasValue("BandRating");
+                    b.HasDiscriminator().HasValue("MusicTalentRating");
                 });
 
             modelBuilder.Entity("FridayNight.DAL.Model.TrackRating", b =>
@@ -425,35 +475,31 @@ namespace FridayNight.DAL.Migrations
                 {
                     b.HasBaseType("FridayNight.DAL.Model.Abstract.ResourceBase");
 
-                    b.Property<Guid?>("BandUid")
-                        .HasColumnName("band_uid")
+                    b.Property<Guid?>("MusicTalentUid")
+                        .HasColumnName("music_talent_uid")
                         .HasColumnType("uuid");
 
-                    b.HasIndex("BandUid")
-                        .HasName("ix_photos_band_uid");
+                    b.HasIndex("MusicTalentUid")
+                        .HasName("ix_photos_music_talent_uid");
 
                     b.HasDiscriminator().HasValue("Photo");
                 });
 
-            modelBuilder.Entity("FridayNight.DAL.Model.Band", b =>
+            modelBuilder.Entity("FridayNight.DAL.Model.MusicTalent", b =>
                 {
-                    b.HasBaseType("FridayNight.DAL.Model.Account");
-
-                    b.Property<Guid?>("ContactUid")
-                        .HasColumnName("contact_uid")
-                        .HasColumnType("uuid");
+                    b.HasBaseType("FridayNight.DAL.Model.Abstract.TalentProvider");
 
                     b.Property<string>("Description")
                         .HasColumnName("description")
                         .HasColumnType("text");
 
+                    b.Property<decimal>("DesirablePayment")
+                        .HasColumnName("desirable_payment")
+                        .HasColumnType("numeric");
+
                     b.Property<Guid?>("InstagramLinkUid")
                         .HasColumnName("instagram_link_uid")
                         .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .HasColumnName("name")
-                        .HasColumnType("text");
 
                     b.Property<Guid?>("PhotoCoverUid")
                         .HasColumnName("photo_cover_uid")
@@ -467,9 +513,6 @@ namespace FridayNight.DAL.Migrations
                         .HasColumnName("youtube_video_uid")
                         .HasColumnType("uuid");
 
-                    b.HasIndex("ContactUid")
-                        .HasName("ix_accounts_contact_uid");
-
                     b.HasIndex("InstagramLinkUid")
                         .HasName("ix_accounts_instagram_link_uid");
 
@@ -482,118 +525,64 @@ namespace FridayNight.DAL.Migrations
                     b.HasIndex("YoutubeVideoUid")
                         .HasName("ix_accounts_youtube_video_uid");
 
-                    b.HasDiscriminator().HasValue("Band");
-                });
-
-            modelBuilder.Entity("FridayNight.DAL.Model.Place", b =>
-                {
-                    b.HasBaseType("FridayNight.DAL.Model.Account");
-
-                    b.Property<Guid?>("ContactUid")
-                        .HasColumnName("Place_contact_uid")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("MusicPreferencesUid")
-                        .HasColumnName("music_preferences_uid")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .HasColumnName("Place_name")
-                        .HasColumnType("text");
-
-                    b.Property<int>("PlaceType")
-                        .HasColumnName("place_type")
-                        .HasColumnType("integer");
-
-                    b.HasIndex("ContactUid")
-                        .HasName("ix_accounts_contact_uid1");
-
-                    b.HasIndex("MusicPreferencesUid")
-                        .HasName("ix_accounts_music_preferences_uid");
-
-                    b.HasDiscriminator().HasValue("Place");
-                });
-
-            modelBuilder.Entity("FridayNight.DAL.Model.User", b =>
-                {
-                    b.HasBaseType("FridayNight.DAL.Model.Account");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnName("first_name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .HasColumnName("last_name")
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("MusicPreferencesUid")
-                        .HasColumnName("User_music_preferences_uid")
-                        .HasColumnType("uuid");
-
-                    b.HasIndex("MusicPreferencesUid")
-                        .HasName("ix_accounts_music_preferences_uid1");
-
-                    b.HasDiscriminator().HasValue("User");
-
-                    b.HasData(
-                        new
-                        {
-                            Uid = new Guid("00000000-0000-0000-0000-000000000000"),
-                            FirstName = "test",
-                            LastName = "test"
-                        });
-                });
-
-            modelBuilder.Entity("FridayNight.DAL.Model.Contact", b =>
-                {
-                    b.HasOne("FridayNight.DAL.Model.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationUid")
-                        .HasConstraintName("fk_contacts_locations_location_uid");
+                    b.HasDiscriminator().HasValue("MusicTalent");
                 });
 
             modelBuilder.Entity("FridayNight.DAL.Model.LivePerformance", b =>
                 {
-                    b.HasOne("FridayNight.DAL.Model.Band", "Band")
-                        .WithMany("Performances")
-                        .HasForeignKey("BandUid")
-                        .HasConstraintName("fk_live_performances_accounts_band_uid");
-
-                    b.HasOne("FridayNight.DAL.Model.FriendlyCharge", "Charge")
+                    b.HasOne("FridayNight.DAL.Model.InternalLink", "InAppLink")
                         .WithMany()
-                        .HasForeignKey("ChargeUid")
-                        .HasConstraintName("fk_live_performances_friendly_charges_charge_uid");
+                        .HasForeignKey("InAppLinkUid")
+                        .HasConstraintName("fk_live_performances_link_container_base_in_app_link_uid");
 
                     b.HasOne("FridayNight.DAL.Model.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationUid")
                         .HasConstraintName("fk_live_performances_locations_location_uid");
 
-                    b.HasOne("FridayNight.DAL.Model.Place", "Place")
+                    b.HasOne("FridayNight.DAL.Model.MusicTalent", "MusicTalent")
+                        .WithMany("Performances")
+                        .HasForeignKey("MusicTalentUid")
+                        .HasConstraintName("fk_live_performances_account_base_music_talent_uid");
+
+                    b.HasOne("FridayNight.DAL.Model.Photo", "Photo")
+                        .WithMany()
+                        .HasForeignKey("PhotoUid")
+                        .HasConstraintName("fk_live_performances_resource_base_photo_uid");
+
+                    b.HasOne("FridayNight.DAL.Model.TalentSeeker", "TalentSeeker")
                         .WithMany("PerformanceHistory")
-                        .HasForeignKey("PlaceUid")
-                        .HasConstraintName("fk_live_performances_accounts_place_uid");
+                        .HasForeignKey("TalentSeekerUid")
+                        .HasConstraintName("fk_live_performances_account_base_talent_seeker_uid");
                 });
 
             modelBuilder.Entity("FridayNight.DAL.Model.Location", b =>
                 {
-                    b.HasOne("FridayNight.DAL.Model.Place", null)
+                    b.HasOne("FridayNight.DAL.Model.TalentSeeker", null)
                         .WithMany("Locations")
-                        .HasForeignKey("PlaceUid")
-                        .HasConstraintName("fk_locations_accounts_place_uid");
+                        .HasForeignKey("TalentSeekerUid")
+                        .HasConstraintName("fk_locations_account_base_talent_seeker_uid");
+                });
+
+            modelBuilder.Entity("FridayNight.DAL.Model.MusicInstrument", b =>
+                {
+                    b.HasOne("FridayNight.DAL.Model.MusicTalent", null)
+                        .WithMany("Instruments")
+                        .HasForeignKey("MusicTalentUid")
+                        .HasConstraintName("fk_music_instrument_account_base_music_talent_uid");
                 });
 
             modelBuilder.Entity("FridayNight.DAL.Model.MusicStyle", b =>
                 {
-                    b.HasOne("FridayNight.DAL.Model.Band", null)
-                        .WithMany("MusicStyle")
-                        .HasForeignKey("BandUid")
-                        .HasConstraintName("fk_music_styles_accounts_band_uid");
-
                     b.HasOne("FridayNight.DAL.Model.MusicPreferences", null)
                         .WithMany("MusicStyles")
                         .HasForeignKey("MusicPreferencesUid")
                         .HasConstraintName("fk_music_styles_music_preferences_music_preferences_uid");
+
+                    b.HasOne("FridayNight.DAL.Model.MusicTalent", null)
+                        .WithMany("MusicStyle")
+                        .HasForeignKey("MusicTalentUid")
+                        .HasConstraintName("fk_music_styles_account_base_music_talent_uid");
 
                     b.HasOne("FridayNight.DAL.Model.Track", null)
                         .WithMany("MusicStyle")
@@ -603,10 +592,10 @@ namespace FridayNight.DAL.Migrations
 
             modelBuilder.Entity("FridayNight.DAL.Model.Track", b =>
                 {
-                    b.HasOne("FridayNight.DAL.Model.Band", "Owner")
+                    b.HasOne("FridayNight.DAL.Model.MusicTalent", "Owner")
                         .WithMany("Tracks")
                         .HasForeignKey("OwnerUid")
-                        .HasConstraintName("fk_tracks_accounts_owner_uid");
+                        .HasConstraintName("fk_tracks_account_base_owner_uid");
 
                     b.HasOne("FridayNight.DAL.Model.TrackRating", "Rating")
                         .WithMany()
@@ -614,34 +603,37 @@ namespace FridayNight.DAL.Migrations
                         .HasConstraintName("fk_tracks_rating_base_rating_uid");
                 });
 
-            modelBuilder.Entity("FridayNight.DAL.Model.ViewedBands", b =>
+            modelBuilder.Entity("FridayNight.DAL.Model.TalentSeeker", b =>
                 {
-                    b.HasOne("FridayNight.DAL.Model.Band", "Band")
+                    b.HasOne("FridayNight.DAL.Model.MusicPreferences", "MusicPreferences")
                         .WithMany()
-                        .HasForeignKey("BandUid")
-                        .HasConstraintName("fk_viewed_bands_accounts_band_uid");
+                        .HasForeignKey("MusicPreferencesUid")
+                        .HasConstraintName("fk_talent_seekers_music_preferences_music_preferences_uid");
+                });
 
-                    b.HasOne("FridayNight.DAL.Model.Place", null)
+            modelBuilder.Entity("FridayNight.DAL.Model.ViewedTalents", b =>
+                {
+                    b.HasOne("FridayNight.DAL.Model.TalentSeeker", null)
                         .WithMany("ViewedBands")
-                        .HasForeignKey("PlaceUid")
-                        .HasConstraintName("fk_viewed_bands_accounts_place_uid");
+                        .HasForeignKey("TalentSeekerUid")
+                        .HasConstraintName("fk_viewed_talents_account_base_talent_seeker_uid");
+
+                    b.HasOne("FridayNight.DAL.Model.Abstract.TalentProvider", "Talent")
+                        .WithMany()
+                        .HasForeignKey("TalentUid")
+                        .HasConstraintName("fk_viewed_talents_account_base_talent_uid");
                 });
 
             modelBuilder.Entity("FridayNight.DAL.Model.Photo", b =>
                 {
-                    b.HasOne("FridayNight.DAL.Model.Band", null)
+                    b.HasOne("FridayNight.DAL.Model.MusicTalent", null)
                         .WithMany("Photos")
-                        .HasForeignKey("BandUid")
-                        .HasConstraintName("fk_photos_accounts_band_uid");
+                        .HasForeignKey("MusicTalentUid")
+                        .HasConstraintName("fk_photos_account_base_music_talent_uid");
                 });
 
-            modelBuilder.Entity("FridayNight.DAL.Model.Band", b =>
+            modelBuilder.Entity("FridayNight.DAL.Model.MusicTalent", b =>
                 {
-                    b.HasOne("FridayNight.DAL.Model.Contact", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactUid")
-                        .HasConstraintName("fk_accounts_contacts_contact_uid");
-
                     b.HasOne("FridayNight.DAL.Model.InstagramLink", "InstagramLink")
                         .WithMany()
                         .HasForeignKey("InstagramLinkUid")
@@ -652,7 +644,7 @@ namespace FridayNight.DAL.Migrations
                         .HasForeignKey("PhotoCoverUid")
                         .HasConstraintName("fk_accounts_resource_base_photo_cover_uid");
 
-                    b.HasOne("FridayNight.DAL.Model.BandRating", "Rating")
+                    b.HasOne("FridayNight.DAL.Model.MusicTalentRating", "Rating")
                         .WithMany()
                         .HasForeignKey("RatingUid")
                         .HasConstraintName("fk_accounts_rating_base_rating_uid");
@@ -661,27 +653,6 @@ namespace FridayNight.DAL.Migrations
                         .WithMany()
                         .HasForeignKey("YoutubeVideoUid")
                         .HasConstraintName("fk_accounts_link_container_base_youtube_video_uid");
-                });
-
-            modelBuilder.Entity("FridayNight.DAL.Model.Place", b =>
-                {
-                    b.HasOne("FridayNight.DAL.Model.Contact", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactUid")
-                        .HasConstraintName("fk_accounts_contacts_contact_uid1");
-
-                    b.HasOne("FridayNight.DAL.Model.MusicPreferences", "MusicPreferences")
-                        .WithMany()
-                        .HasForeignKey("MusicPreferencesUid")
-                        .HasConstraintName("fk_accounts_music_preferences_music_preferences_uid");
-                });
-
-            modelBuilder.Entity("FridayNight.DAL.Model.User", b =>
-                {
-                    b.HasOne("FridayNight.DAL.Model.MusicPreferences", "MusicPreferences")
-                        .WithMany()
-                        .HasForeignKey("MusicPreferencesUid")
-                        .HasConstraintName("fk_accounts_music_preferences_music_preferences_uid1");
                 });
 #pragma warning restore 612, 618
         }

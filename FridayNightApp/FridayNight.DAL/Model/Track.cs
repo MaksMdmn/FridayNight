@@ -5,7 +5,7 @@ namespace FridayNight.DAL.Model
 {
     public class Track : ModelBase
     {
-        public Band Owner { get; set; }
+        public MusicTalent Owner { get; set; }
 
         public string TrackName { get; set; }
 

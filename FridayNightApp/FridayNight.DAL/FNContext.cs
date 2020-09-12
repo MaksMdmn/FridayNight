@@ -9,14 +9,11 @@ namespace FridayNight.DAL
 {
     public class FNContext : DbContext
     {
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<Band> Bands { get; set; }
-        public DbSet<Place> Places { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<BandRating> BandRatings { get; set; }
+        public DbSet<TalentSeeker> TalentSeekers { get; set; }
+        public DbSet<MusicTalent> Bands { get; set; }
+        public DbSet<MusicTalentRating> BandRatings { get; set; }
         public DbSet<TrackRating> TrackRatings { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<FriendlyCharge> FriendlyCharges { get; set; }
+        public DbSet<InternalLink> InternalLinks { get; set; }
         public DbSet<InstagramLink> InstagramLinks { get; set; }
         public DbSet<YoutubeVideoLink> YoutubeVideoLinks { get; set; }
         public DbSet<LivePerformance> LivePerformances { get; set; }
@@ -25,7 +22,6 @@ namespace FridayNight.DAL
         public DbSet<MusicStyle> MusicStyles { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Track> Tracks { get; set; }
-        //public DbSet<PlaylistInternal> MyProperty { get; set; }
 
         public FNContext(DbContextOptions<FNContext> options) : base(options)
         {
@@ -39,20 +35,13 @@ namespace FridayNight.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AccountBase>().ToTable("accounts");
             modelBuilder.Entity<RatingBase>().ToTable("ratings");
             modelBuilder.Entity<LinkContainerBase>().ToTable("link_containers");
             modelBuilder.Entity<ResourceBase>().ToTable("resources");
             modelBuilder.Entity<ActionRecordBase>().ToTable("action_records");
 
             modelBuilder.HasPostgresExtension("uuid-ossp");
-
-            modelBuilder.Entity<User>().HasData(
-                new User()
-                {
-                    Uid = Guid.NewGuid(),
-                    FirstName = "test",
-                    LastName = "test"
-                });
         }
     }
 }

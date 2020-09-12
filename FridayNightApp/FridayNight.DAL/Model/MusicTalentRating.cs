@@ -2,7 +2,7 @@
 
 namespace FridayNight.DAL.Model
 {
-    public class BandRating : RatingBase
+    public class MusicTalentRating : RatingBase
     {
         public int LikesCount { get; set; }
 

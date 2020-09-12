@@ -1,0 +1,20 @@
+1) Registration
+	- insert general info:
+		email
+		password
+		name
+	- choose type of account:
+		user:
+			[musthave]
+			[nullable]
+				preferences
+		band:
+			[musthave]
+				name
+				description
+				style
+				contacts
+			[nullable]
+			
+			
+		place

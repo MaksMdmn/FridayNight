@@ -5,7 +5,8 @@ using System.Text;
 
 namespace FridayNight.DAL.Model
 {
-    public class PlaylistInternal : ModelBase
+    public class ViewedTalents : ActionRecordBase
     {
+        public TalentProvider Talent { get; set; }
     }
 }

@@ -3,22 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FridayNight.DAL.Migrations
 {
-    public partial class InitiateDatabase : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "friendly_charges",
-                columns: table => new
-                {
-                    uid = table.Column<Guid>(nullable: false),
-                    amount = table.Column<decimal>(nullable: false),
-                    state = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_friendly_charges", x => x.uid);
-                });
+            migrationBuilder.AlterDatabase()
+                .Annotation("Npgsql:PostgresExtension:uuid-ossp", ",,");
 
             migrationBuilder.CreateTable(
                 name: "link_containers",
@@ -67,8 +57,8 @@ namespace FridayNight.DAL.Migrations
                     uid = table.Column<Guid>(nullable: false),
                     date_time = table.Column<DateTime>(nullable: false),
                     discriminator = table.Column<string>(nullable: false),
-                    band_uid = table.Column<Guid>(nullable: true),
-                    place_uid = table.Column<Guid>(nullable: true)
+                    talent_uid = table.Column<Guid>(nullable: true),
+                    talent_seeker_uid = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -80,23 +70,25 @@ namespace FridayNight.DAL.Migrations
                 columns: table => new
                 {
                     uid = table.Column<Guid>(nullable: false),
+                    name = table.Column<string>(nullable: true),
+                    performance_type = table.Column<int>(nullable: false),
                     date = table.Column<DateTime>(nullable: false),
-                    band_uid = table.Column<Guid>(nullable: true),
-                    place_uid = table.Column<Guid>(nullable: true),
-                    is_approved = table.Column<bool>(nullable: false),
-                    state = table.Column<int>(nullable: false),
-                    charge_uid = table.Column<Guid>(nullable: true),
+                    location_uid = table.Column<Guid>(nullable: true),
                     duration = table.Column<TimeSpan>(nullable: true),
                     is_private = table.Column<bool>(nullable: false),
-                    location_uid = table.Column<Guid>(nullable: true)
+                    photo_uid = table.Column<Guid>(nullable: true),
+                    music_talent_uid = table.Column<Guid>(nullable: true),
+                    talent_seeker_uid = table.Column<Guid>(nullable: true),
+                    state = table.Column<int>(nullable: false),
+                    in_app_link_uid = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_live_performances", x => x.uid);
                     table.ForeignKey(
-                        name: "fk_live_performances_friendly_charges_charge_uid",
-                        column: x => x.charge_uid,
-                        principalTable: "friendly_charges",
+                        name: "fk_live_performances_link_container_base_in_app_link_uid",
+                        column: x => x.in_app_link_uid,
+                        principalTable: "link_containers",
                         principalColumn: "uid",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -109,7 +101,9 @@ namespace FridayNight.DAL.Migrations
                     country = table.Column<string>(nullable: true),
                     city = table.Column<string>(nullable: true),
                     address = table.Column<string>(nullable: true),
-                    place_uid = table.Column<Guid>(nullable: true)
+                    google_coordinates = table.Column<string>(nullable: true),
+                    creation_date = table.Column<DateTime>(nullable: false),
+                    talent_seeker_uid = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -117,23 +111,16 @@ namespace FridayNight.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "contacts",
+                name: "music_instrument",
                 columns: table => new
                 {
                     uid = table.Column<Guid>(nullable: false),
-                    name = table.Column<string>(nullable: true),
-                    phone = table.Column<string>(nullable: true),
-                    location_uid = table.Column<Guid>(nullable: true)
+                    type = table.Column<int>(nullable: false),
+                    music_talent_uid = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_contacts", x => x.uid);
-                    table.ForeignKey(
-                        name: "fk_contacts_locations_location_uid",
-                        column: x => x.location_uid,
-                        principalTable: "locations",
-                        principalColumn: "uid",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("pk_music_instrument", x => x.uid);
                 });
 
             migrationBuilder.CreateTable(
@@ -142,8 +129,8 @@ namespace FridayNight.DAL.Migrations
                 {
                     uid = table.Column<Guid>(nullable: false),
                     name = table.Column<int>(nullable: false),
-                    band_uid = table.Column<Guid>(nullable: true),
                     music_preferences_uid = table.Column<Guid>(nullable: true),
+                    music_talent_uid = table.Column<Guid>(nullable: true),
                     track_uid = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -164,7 +151,7 @@ namespace FridayNight.DAL.Migrations
                     uid = table.Column<Guid>(nullable: false),
                     resource = table.Column<byte[]>(nullable: true),
                     discriminator = table.Column<string>(nullable: false),
-                    band_uid = table.Column<Guid>(nullable: true)
+                    music_talent_uid = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,34 +163,26 @@ namespace FridayNight.DAL.Migrations
                 columns: table => new
                 {
                     uid = table.Column<Guid>(nullable: false),
-                    email = table.Column<string>(nullable: true),
-                    phone = table.Column<string>(nullable: true),
+                    registration_date = table.Column<DateTime>(nullable: false),
+                    login = table.Column<string>(nullable: true),
                     password = table.Column<string>(nullable: true),
+                    is_confirmed = table.Column<bool>(nullable: false),
                     discriminator = table.Column<string>(nullable: false),
                     name = table.Column<string>(nullable: true),
+                    phone = table.Column<string>(nullable: true),
                     description = table.Column<string>(nullable: true),
                     photo_cover_uid = table.Column<Guid>(nullable: true),
                     youtube_video_uid = table.Column<Guid>(nullable: true),
                     instagram_link_uid = table.Column<Guid>(nullable: true),
-                    contact_uid = table.Column<Guid>(nullable: true),
                     rating_uid = table.Column<Guid>(nullable: true),
-                    place_type = table.Column<int>(nullable: true),
-                    Place_name = table.Column<string>(nullable: true),
-                    Place_contact_uid = table.Column<Guid>(nullable: true),
-                    music_preferences_uid = table.Column<Guid>(nullable: true),
-                    first_name = table.Column<string>(nullable: true),
-                    last_name = table.Column<string>(nullable: true),
-                    User_music_preferences_uid = table.Column<Guid>(nullable: true)
+                    desirable_payment = table.Column<decimal>(nullable: true),
+                    TalentSeeker_name = table.Column<string>(nullable: true),
+                    TalentSeeker_phone = table.Column<string>(nullable: true),
+                    music_preferences_uid = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_accounts", x => x.uid);
-                    table.ForeignKey(
-                        name: "fk_accounts_contacts_contact_uid",
-                        column: x => x.contact_uid,
-                        principalTable: "contacts",
-                        principalColumn: "uid",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("pk_account_base", x => x.uid);
                     table.ForeignKey(
                         name: "fk_accounts_link_container_base_instagram_link_uid",
                         column: x => x.instagram_link_uid,
@@ -229,20 +208,8 @@ namespace FridayNight.DAL.Migrations
                         principalColumn: "uid",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "fk_accounts_contacts_contact_uid1",
-                        column: x => x.Place_contact_uid,
-                        principalTable: "contacts",
-                        principalColumn: "uid",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "fk_accounts_music_preferences_music_preferences_uid",
+                        name: "fk_talent_seekers_music_preferences_music_preferences_uid",
                         column: x => x.music_preferences_uid,
-                        principalTable: "music_preferences",
-                        principalColumn: "uid",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "fk_accounts_music_preferences_music_preferences_uid1",
-                        column: x => x.User_music_preferences_uid,
                         principalTable: "music_preferences",
                         principalColumn: "uid",
                         onDelete: ReferentialAction.Restrict);
@@ -261,7 +228,7 @@ namespace FridayNight.DAL.Migrations
                 {
                     table.PrimaryKey("pk_tracks", x => x.uid);
                     table.ForeignKey(
-                        name: "fk_tracks_accounts_owner_uid",
+                        name: "fk_tracks_account_base_owner_uid",
                         column: x => x.owner_uid,
                         principalTable: "accounts",
                         principalColumn: "uid",
@@ -273,11 +240,6 @@ namespace FridayNight.DAL.Migrations
                         principalColumn: "uid",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "ix_accounts_contact_uid",
-                table: "accounts",
-                column: "contact_uid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_accounts_instagram_link_uid",
@@ -300,44 +262,24 @@ namespace FridayNight.DAL.Migrations
                 column: "youtube_video_uid");
 
             migrationBuilder.CreateIndex(
-                name: "ix_accounts_contact_uid1",
-                table: "accounts",
-                column: "Place_contact_uid");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_accounts_music_preferences_uid",
+                name: "ix_talent_seekers_music_preferences_uid",
                 table: "accounts",
                 column: "music_preferences_uid");
 
             migrationBuilder.CreateIndex(
-                name: "ix_accounts_music_preferences_uid1",
-                table: "accounts",
-                column: "User_music_preferences_uid");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_viewed_bands_band_uid",
+                name: "ix_viewed_talents_talent_seeker_uid",
                 table: "action_records",
-                column: "band_uid");
+                column: "talent_seeker_uid");
 
             migrationBuilder.CreateIndex(
-                name: "ix_viewed_bands_place_uid",
+                name: "ix_viewed_talents_talent_uid",
                 table: "action_records",
-                column: "place_uid");
+                column: "talent_uid");
 
             migrationBuilder.CreateIndex(
-                name: "ix_contacts_location_uid",
-                table: "contacts",
-                column: "location_uid");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_live_performances_band_uid",
+                name: "ix_live_performances_in_app_link_uid",
                 table: "live_performances",
-                column: "band_uid");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_live_performances_charge_uid",
-                table: "live_performances",
-                column: "charge_uid");
+                column: "in_app_link_uid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_live_performances_location_uid",
@@ -345,19 +287,29 @@ namespace FridayNight.DAL.Migrations
                 column: "location_uid");
 
             migrationBuilder.CreateIndex(
-                name: "ix_live_performances_place_uid",
+                name: "ix_live_performances_music_talent_uid",
                 table: "live_performances",
-                column: "place_uid");
+                column: "music_talent_uid");
 
             migrationBuilder.CreateIndex(
-                name: "ix_locations_place_uid",
+                name: "ix_live_performances_photo_uid",
+                table: "live_performances",
+                column: "photo_uid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_live_performances_talent_seeker_uid",
+                table: "live_performances",
+                column: "talent_seeker_uid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_locations_talent_seeker_uid",
                 table: "locations",
-                column: "place_uid");
+                column: "talent_seeker_uid");
 
             migrationBuilder.CreateIndex(
-                name: "ix_music_styles_band_uid",
-                table: "music_styles",
-                column: "band_uid");
+                name: "ix_music_instrument_music_talent_uid",
+                table: "music_instrument",
+                column: "music_talent_uid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_music_styles_music_preferences_uid",
@@ -365,14 +317,19 @@ namespace FridayNight.DAL.Migrations
                 column: "music_preferences_uid");
 
             migrationBuilder.CreateIndex(
+                name: "ix_music_styles_music_talent_uid",
+                table: "music_styles",
+                column: "music_talent_uid");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_music_styles_track_uid",
                 table: "music_styles",
                 column: "track_uid");
 
             migrationBuilder.CreateIndex(
-                name: "ix_photos_band_uid",
+                name: "ix_photos_music_talent_uid",
                 table: "resources",
-                column: "band_uid");
+                column: "music_talent_uid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_tracks_owner_uid",
@@ -385,33 +342,41 @@ namespace FridayNight.DAL.Migrations
                 column: "rating_uid");
 
             migrationBuilder.AddForeignKey(
-                name: "fk_viewed_bands_accounts_band_uid",
+                name: "fk_viewed_talents_account_base_talent_seeker_uid",
                 table: "action_records",
-                column: "band_uid",
+                column: "talent_seeker_uid",
                 principalTable: "accounts",
                 principalColumn: "uid",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "fk_viewed_bands_accounts_place_uid",
+                name: "fk_viewed_talents_account_base_talent_uid",
                 table: "action_records",
-                column: "place_uid",
+                column: "talent_uid",
                 principalTable: "accounts",
                 principalColumn: "uid",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "fk_live_performances_accounts_band_uid",
+                name: "fk_live_performances_resource_base_photo_uid",
                 table: "live_performances",
-                column: "band_uid",
+                column: "photo_uid",
+                principalTable: "resources",
+                principalColumn: "uid",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "fk_live_performances_account_base_music_talent_uid",
+                table: "live_performances",
+                column: "music_talent_uid",
                 principalTable: "accounts",
                 principalColumn: "uid",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "fk_live_performances_accounts_place_uid",
+                name: "fk_live_performances_account_base_talent_seeker_uid",
                 table: "live_performances",
-                column: "place_uid",
+                column: "talent_seeker_uid",
                 principalTable: "accounts",
                 principalColumn: "uid",
                 onDelete: ReferentialAction.Restrict);
@@ -425,17 +390,25 @@ namespace FridayNight.DAL.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "fk_locations_accounts_place_uid",
+                name: "fk_locations_account_base_talent_seeker_uid",
                 table: "locations",
-                column: "place_uid",
+                column: "talent_seeker_uid",
                 principalTable: "accounts",
                 principalColumn: "uid",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "fk_music_styles_accounts_band_uid",
+                name: "fk_music_instrument_account_base_music_talent_uid",
+                table: "music_instrument",
+                column: "music_talent_uid",
+                principalTable: "accounts",
+                principalColumn: "uid",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "fk_music_styles_account_base_music_talent_uid",
                 table: "music_styles",
-                column: "band_uid",
+                column: "music_talent_uid",
                 principalTable: "accounts",
                 principalColumn: "uid",
                 onDelete: ReferentialAction.Restrict);
@@ -449,9 +422,9 @@ namespace FridayNight.DAL.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "fk_photos_accounts_band_uid",
+                name: "fk_photos_account_base_music_talent_uid",
                 table: "resources",
-                column: "band_uid",
+                column: "music_talent_uid",
                 principalTable: "accounts",
                 principalColumn: "uid",
                 onDelete: ReferentialAction.Restrict);
@@ -459,14 +432,6 @@ namespace FridayNight.DAL.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "fk_accounts_contacts_contact_uid",
-                table: "accounts");
-
-            migrationBuilder.DropForeignKey(
-                name: "fk_accounts_contacts_contact_uid1",
-                table: "accounts");
-
             migrationBuilder.DropForeignKey(
                 name: "fk_accounts_link_container_base_instagram_link_uid",
                 table: "accounts");
@@ -486,19 +451,16 @@ namespace FridayNight.DAL.Migrations
                 name: "live_performances");
 
             migrationBuilder.DropTable(
+                name: "music_instrument");
+
+            migrationBuilder.DropTable(
                 name: "music_styles");
 
             migrationBuilder.DropTable(
-                name: "friendly_charges");
+                name: "locations");
 
             migrationBuilder.DropTable(
                 name: "tracks");
-
-            migrationBuilder.DropTable(
-                name: "contacts");
-
-            migrationBuilder.DropTable(
-                name: "locations");
 
             migrationBuilder.DropTable(
                 name: "link_containers");

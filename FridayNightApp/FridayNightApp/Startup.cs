@@ -1,12 +1,8 @@
-using System;
 using FridayNight.DAL;
 using FridayNight.DAL.Model;
-using FridayNight.DAL.Repository;
-using FridayNight.DAL.Repository.Interface;
 using FridayNightApp.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,7 +45,6 @@ namespace FridayNightApp
             });
 
             services.AddScoped<DbContext>(provider => provider.GetService<FNContext>());
-            services.AddScoped<IRepositoryBase<User>, UserRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
