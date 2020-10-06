@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FridayNight.DAL.Migrations
 {
-    [DbContext(typeof(FNContext))]
+    [DbContext(typeof(FridayNightContext))]
     partial class FNContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FridayNight.DAL.Migrations
 {
-    [DbContext(typeof(FNContext))]
+    [DbContext(typeof(FridayNightContext))]
     [Migration("20200912143909_InitialCreate")]
     partial class InitialCreate
     {

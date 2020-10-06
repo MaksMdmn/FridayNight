@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FridayNight.DAL.Migrations
 {
-    [DbContext(typeof(FNContext))]
+    [DbContext(typeof(FridayNightContext))]
     [Migration("20200912144329_AccountModelFixed")]
     partial class AccountModelFixed
     {
