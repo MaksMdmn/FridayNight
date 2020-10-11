@@ -4,18 +4,8 @@ using System.Text;
 
 namespace FridayNight.Core.Models
 {
-    public enum EMusicStyle
-    {
-        Rock,
-        Dj,
-        Pop,
-        HipHop
-    }
-
     public class TalentSeekerRegistrationSpec
     {
-        public bool QuickRegistrationEnabled { get; set; }
-
         public string Email { get; set; }
 
         public string Password { get; set; }

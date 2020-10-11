@@ -1,8 +1,5 @@
 ﻿using FridayNight.DAL.Models;
-using FridayNight.DAL.Repositories.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using FridayNight.DataAccessLayer.Repositories.Interfaces;
 
 namespace FridayNight.DAL.Repositories.Interfaces
 {

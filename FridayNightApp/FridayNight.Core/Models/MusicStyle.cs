@@ -1,7 +1,8 @@
 ﻿using FridayNight.DAL.Models.Abstract;
 using FridayNight.DataAccessLayer.Repositories.Models;
+using FridayNight.Library.CoreLayer.Models;
 
-namespace FridayNight.DAL.Models
+namespace FridayNight.Core.Models
 {
     public enum EMusicStyle
     {
@@ -11,7 +12,7 @@ namespace FridayNight.DAL.Models
         HipHop
     }
 
-    public class MusicStyle : EntityWithDbKey
+    public class MusicStyle : ModelBase
     {
         public EMusicStyle Name { get; set; }
     }

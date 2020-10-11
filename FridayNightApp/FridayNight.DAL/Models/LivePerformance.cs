@@ -1,4 +1,5 @@
 ﻿using FridayNight.DAL.Models.Abstract;
+using FridayNight.DataAccessLayer.Repositories.Models;
 using System;
 
 namespace FridayNight.DAL.Models
@@ -19,7 +20,7 @@ namespace FridayNight.DAL.Models
         Custom
     }
 
-    public class LivePerformance : ModelBase
+    public class LivePerformance : EntityWithDbKey
     {
         public string Name { get; set; }
 

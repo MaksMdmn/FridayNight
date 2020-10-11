@@ -1,10 +1,9 @@
-﻿using FridayNight.DAL.Repositories.Abstract;
+﻿using FridayNight.Common.Abstract;
+using FridayNight.DataAccessLayer.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace FridayNight.DAL.Repositories.Abstract
+namespace FridayNight.DataAccessLayer.Repositories.EntityFrameworkBase
 {
 
     //

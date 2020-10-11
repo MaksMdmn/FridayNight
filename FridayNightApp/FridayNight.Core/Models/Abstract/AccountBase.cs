@@ -1,11 +1,11 @@
-﻿using FridayNight.DataAccessLayer.Repositories.Models;
+﻿using FridayNight.Library.CoreLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace FridayNight.DAL.Models.Abstract
+namespace FridayNight.Core.Models.Abstract
 {
-    public abstract class AccountBase : EntityWithDbKey
+    public abstract class AccountBase : ModelBase
     {
         public DateTime RegistrationDate { get; set; }
         public string Login { get; set; }

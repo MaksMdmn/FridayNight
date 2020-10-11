@@ -1,9 +1,10 @@
 ﻿using FridayNight.DAL.Models.Abstract;
+using FridayNight.DataAccessLayer.Repositories.Models;
 using System.Collections.Generic;
 
 namespace FridayNight.DAL.Models
 {
-    public class Track : ModelBase
+    public class Track : EntityWithDbKey
     {
         public MusicTalent Owner { get; set; }
 

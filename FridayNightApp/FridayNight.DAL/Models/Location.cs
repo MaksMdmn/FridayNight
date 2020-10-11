@@ -1,9 +1,10 @@
 ﻿using FridayNight.DAL.Models.Abstract;
+using FridayNight.DataAccessLayer.Repositories.Models;
 using System;
 
 namespace FridayNight.DAL.Models
 {
-    public class Location : ModelBase
+    public class Location : EntityWithDbKey
     {
         public string Country { get; set; }
 

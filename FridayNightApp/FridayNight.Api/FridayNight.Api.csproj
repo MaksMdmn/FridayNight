@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\FridayNight.Core\FridayNight.Core.csproj" />
     <ProjectReference Include="..\FridayNight.DAL\FridayNight.DAL.csproj" />
   </ItemGroup>

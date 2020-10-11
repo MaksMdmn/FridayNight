@@ -1,4 +1,5 @@
 ﻿using FridayNight.DAL.Models.Abstract;
+using FridayNight.DataAccessLayer.Repositories.Models;
 
 namespace FridayNight.DAL.Models
 {
@@ -9,7 +10,7 @@ namespace FridayNight.DAL.Models
         Drums,
     }
 
-    public class MusicInstrument : ModelBase
+    public class MusicInstrument : EntityWithDbKey
     {
         public EInstrumentType Type { get; set; }
     }

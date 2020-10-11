@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FridayNight.Common.Abstract;
+using System;
 
-namespace FridayNight.DAL.Repositories.Abstract
+namespace FridayNight.DataAccessLayer.Repositories.Interfaces
 {
     public interface IRepositoryReadOnly<TEntity> : IRepository where TEntity : IEntity
     {

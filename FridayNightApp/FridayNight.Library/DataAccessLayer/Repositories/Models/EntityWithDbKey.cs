@@ -1,13 +1,13 @@
-﻿using FridayNight.DAL.Repositories.Abstract;
+﻿using FridayNight.Common.Abstract;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace FridayNight.DAL.Models.Abstract
+namespace FridayNight.DataAccessLayer.Repositories.Models
 {
-    public abstract class ModelBase : IEntity
+    public abstract class EntityWithDbKey : IEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

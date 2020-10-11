@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FridayNight.DAL.Repositories.Abstract
+namespace FridayNight.DataAccessLayer.Repositories.Interfaces
 {
     public interface IRepository
     {
